@@ -33,10 +33,7 @@ for (const [name, count] of Object.entries(endObj)) {
    const finalObj = { name: name  , count: count } 
    endArray.push(finalObj);
 }
-  
- endArray.sort((genreA, genreB) => (genreA.count > genreB.count ? -1 : 1));
-
- return endArray.slice(0,5);
+  return topFive(endArray);
 }
 
 function getMostPopularBooks(books) {
@@ -44,9 +41,7 @@ function getMostPopularBooks(books) {
   books.forEach((book) => {
       endArray.push({ name: book.title, count: book.borrows.length });
     })
-    endArray.sort((bookA, bookB) => (bookA.count > bookB.count ? -1 : 1));
-
-    return endArray.slice(0,5);
+    return topFive(endArray);
   }
 
 
@@ -59,9 +54,12 @@ function getMostPopularAuthors(books, authors) {
       }
     })
   })
-  endArray.sort((authorA, authorB) => (authorA.count > authorB.count ? -1 : 1));
+return topFive(endArray);
+}
 
-  return endArray.slice(0,5);
+function topFive(array) {
+  array.sort((counterA, counterB) => (counterA.count < counterB.count ? 1 : -1))
+return array.slice(0,5);
 }
 
 module.exports = {
