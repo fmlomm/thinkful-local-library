@@ -8,14 +8,13 @@ function getTotalAccountsCount(accounts) {
 
 function getBooksBorrowedCount(books) {
 // create holder var for borrowed value
- let borrowed = 0;
 //  use forEach to loop thru books and use holder var to add for each book not returned
-  books.forEach((book) => {
+  return books.reduce((acc, book) => {
     if (!book.borrows[0].returned) {
-      borrowed++;
+      acc++;
     }
-  })
-  return borrowed;
+    return acc;
+  }, 0)
 }
 
 function getMostCommonGenres(books) {
@@ -37,10 +36,9 @@ for (const [name, count] of Object.entries(endObj)) {
 }
 
 function getMostPopularBooks(books) {
-  const endArray = [];
-  books.forEach((book) => {
-      endArray.push({ name: book.title, count: book.borrows.length });
-    })
+  const endArray = books.map((book) => 
+    ({ name: book.title, count: book.borrows.length })
+    )
     return topFive(endArray);
   }
 
